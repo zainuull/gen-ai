@@ -31,6 +31,7 @@ export default function Home() {
       audio.currentTime = 0;
       setAudioPlaying(false);
       deleteAudioFile();
+      window.speechSynthesis.cancel();
     }
   };
 
@@ -69,11 +70,13 @@ export default function Home() {
       />
       <Result
         audioPlaying={audioPlaying}
+        setAudioPlaying={setAudioPlaying}
         gtts={gtts}
         transcript={transcript}
         setTranscript={setTranscript}
         isRecording={isRecording}
         stopAudio={stopAudio}
+        setAudio={setAudio}
         getWeather={getWeather}
       />
     </main>

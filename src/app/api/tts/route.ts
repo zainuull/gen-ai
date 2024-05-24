@@ -8,7 +8,6 @@ const client = new TextToSpeechClient();
 
 export async function POST(req: NextRequest) {
   const { text } = await req.json();
-  console.log(text);
 
   if (!text) {
     return NextResponse.json({ message: 'Text is required' }, { status: 400 });

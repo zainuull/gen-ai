@@ -57,12 +57,6 @@ const Recorder = (props: IRecorder) => {
     };
   }, [isRecording]);
 
-  //   useEffect(() => {
-  //     if (transcript) {
-  //       const utterance = new SpeechSynthesisUtterance(transcript);
-  //       window.speechSynthesis.speak(utterance);
-  //     }
-  //   }, [transcript]);
 
   return (
     <div className="w-full flex flex-col items-center gap-y-4">
