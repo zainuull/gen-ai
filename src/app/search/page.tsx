@@ -1,75 +1,72 @@
 'use client';
+import { getWeather } from '@/services/api/services';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useEffect, useState } from 'react';
 
-interface IResult {
+interface ISearch {
   gtts: Function;
-  audioPlaying: boolean;
-  setAudioPlaying: Function;
+  runVoice: Function;
+  setVoices: Function;
   transcript: string;
   isRecording: boolean;
   setTranscript: Function;
-  stopAudio: Function;
-  setAudio: Function;
-  getWeather: Function;
+  audioPlaying: boolean;
 }
 
-const Result = (props: IResult) => {
-  const {
-    gtts,
-    audioPlaying,
-    setAudioPlaying,
-    transcript,
-    setTranscript,
-    isRecording,
-    stopAudio,
-    setAudio,
-    getWeather,
-  } = props;
+const Search = (props: ISearch) => {
+  const { gtts, runVoice, setVoices, transcript, isRecording, setTranscript, audioPlaying } = props;
   const genAI = new GoogleGenerativeAI('AIzaSyC-3Q3ZoBlAtDE471lReBHVnA372qa_lyE');
   const [res, setResponse] = useState('');
   const [loading, setIsLoading] = useState(false);
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
 
   const aiRun = async () => {
     setResponse('');
 
-    switch (transcript) {
-      case 'hello Mindy':
+    const lowerCaseTranscript = transcript.toLowerCase();
+    console.log(lowerCaseTranscript);
+
+    switch (true) {
+      case lowerCaseTranscript.includes('mindy'):
         // gtts('Hello Sir, how are you today ?');
         runVoice('Hello Sir, how are you today ?');
+        setResponse('Hello sir, how are you today ?');
         setTranscript('');
         break;
-      case 'can you help me' || ' can you help me':
+      case lowerCaseTranscript.includes('help me'):
         // gtts('Yes sir, i could help you please');
         runVoice('Yes sir, i could help you please');
+        setResponse('Yes sir, i could help you please');
         setTranscript('');
         break;
-      case 'open the YouTube' || ' open the YouTube':
+      case lowerCaseTranscript.includes('youtube'):
         window.open('https://www.youtube.com', '_blank');
         // gtts('Yes sir, here you are');
         runVoice('Yes sir, here you are');
+        setResponse('Yes sir, here you are');
         setTranscript('');
         break;
-      case 'open the Instagram' || ' open the Instagram':
+      case lowerCaseTranscript.includes('instagram'):
         window.open('https://www.instagram.com', '_blank');
         // gtts('Yes sir, here you are');
         runVoice('Yes sir, here you are');
+        setResponse('Yes sir, here you are');
         setTranscript('');
         break;
-      case 'open the Linkedin' || ' open the Linkedin':
+      case lowerCaseTranscript.includes('linkedin'):
         window.open('https://www.linkedin.com', '_blank');
         // gtts('Yes sir, here you are');
         runVoice('Yes sir, here you are');
+        setResponse('Yes sir, here you are');
         setTranscript('');
         break;
-      case 'open the WhatsApp' || ' open the WhatsApp':
+      case lowerCaseTranscript.includes('whatsapp'):
         window.open('https://web.whatsapp.com/', '_blank');
         // gtts('Yes sir, here you are');
         runVoice('Yes sir, here you are');
+        setResponse('Yes sir, here you are');
         setTranscript('');
         break;
-      case 'what weather today' || ' what weather today':
+      case lowerCaseTranscript.includes('weather'):
         const city = 'Cikarang';
         getWeather(city).then((weatherData: any) => {
           if (weatherData) {
@@ -98,31 +95,6 @@ const Result = (props: IResult) => {
     }
   };
 
-  const runVoice = (text?: string) => {
-    window.speechSynthesis.cancel();
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    const femaleVoice = voices?.find(
-      (voice) =>
-        voice.name.includes('female') ||
-        voice.name.includes('Female') ||
-        voice.name.includes('Google UK English Female')
-    );
-
-    if (femaleVoice) {
-      utterance.voice = femaleVoice;
-    } else if (voices.length > 0) {
-      utterance.voice = voices[0];
-    }
-    utterance.onstart = () => setAudioPlaying(true);
-    utterance.onend = () => {
-      setAudioPlaying(false);
-      setAudio(null);
-    };
-
-    window.speechSynthesis.speak(utterance);
-  };
-
   const removeSymbols = (text: string) => {
     return text.replace(/[^\w\s]/gi, '');
   };
@@ -141,7 +113,7 @@ const Result = (props: IResult) => {
   }, [isRecording]);
 
   return (
-    <span className="flex flex-col items-center">
+    <span className="flex flex-col">
       {loading === true && res === '' ? (
         <p>loading....</p>
       ) : (
@@ -151,7 +123,7 @@ const Result = (props: IResult) => {
               {res.length ? (
                 <>
                   <h1 className="w-full flex items-center justify-center">Result : </h1>
-                  <p className="text-xl text-justify">{removeSymbols(res)}</p>
+                  <p className="text-sm xl:text-base text-justify">{removeSymbols(res)}</p>
                 </>
               ) : (
                 <></>
@@ -167,4 +139,4 @@ const Result = (props: IResult) => {
   );
 };
 
-export default Result;
+export default Search;

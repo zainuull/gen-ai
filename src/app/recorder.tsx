@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import { FaPlay } from 'react-icons/fa';
+import { AiTwotoneAudio } from 'react-icons/ai';
 import { LiaGripLinesVerticalSolid } from 'react-icons/lia';
 
 interface IRecorder {
@@ -57,13 +57,14 @@ const Recorder = (props: IRecorder) => {
     };
   }, [isRecording]);
 
-
   return (
-    <div className="w-full flex flex-col items-center gap-y-4">
-      <button onClick={() => setIsRecording(!isRecording)} className='bg-red-600 rounded-lg p-3'>
-        {isRecording ? <LiaGripLinesVerticalSolid size={25} /> : <FaPlay size={25} />}
+    <div className="w-full h-32 xl:h-36 flex flex-col items-center xl:gap-y-4 py-4">
+      <button
+        onClick={() => setIsRecording(!isRecording)}
+        className="bg-red-600 rounded-lg p-3 text-white">
+        {isRecording ? <LiaGripLinesVerticalSolid size={25} /> : <AiTwotoneAudio size={25} />}
       </button>
-      <p>{transcript}</p>
+      <p className="text-sm xl:text-base my-3 xl:my-5">{transcript}</p>
     </div>
   );
 };
