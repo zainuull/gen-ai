@@ -24,7 +24,7 @@ export default function Home() {
   };
 
   const gtts = async (text: string) => {
-    const temp = await axios.post('/api/tts', { text });
+    const temp = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/tts`, { text });
     const newAudio = new Audio(temp.data.url);
 
     newAudio.onplay = () => setAudioPlaying(true);
