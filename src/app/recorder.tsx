@@ -30,6 +30,7 @@ const Recorder = (props: IRecorder) => {
 
     recognition.onend = () => {
       setIsRecording(false);
+      setTranscript('');
     };
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
@@ -62,9 +63,23 @@ const Recorder = (props: IRecorder) => {
       <button
         onClick={() => setIsRecording(!isRecording)}
         className="bg-red-600 rounded-lg p-3 text-white">
-        {isRecording ? <LiaGripLinesVerticalSolid size={25} /> : <AiTwotoneAudio size={25} />}
+        {isRecording ? (
+          <LiaGripLinesVerticalSolid
+            size={25}
+            className="w-[17px] h-[17px] xl:w-[25px] xl:h-[25px]"
+          />
+        ) : (
+          <AiTwotoneAudio size={25} className="w-[17px] h-[17px] xl:w-[25px] xl:h-[25px]" />
+        )}
       </button>
-      <p className="text-sm xl:text-base my-3 xl:my-5">{transcript}</p>
+      <input
+        defaultValue={transcript}
+        className={`bg-gray-100 w-11/12 xl:w-1/2  rounded-lg flex items-center justify-center text-sm xl:text-base my-3 xl:my-5 px-3 py-2 outline-none ${
+          transcript && 'border-2 border-blue-300 transition-all duration-100'
+        }`}
+        placeholder="Speak what you want"
+        disabled
+      />
     </div>
   );
 };

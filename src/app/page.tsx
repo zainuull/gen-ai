@@ -35,6 +35,8 @@ export default function Home() {
     };
     newAudio.play();
     setAudio(newAudio);
+
+    console.log(newAudio);
   };
 
   const runVoice = (text?: string) => {
@@ -56,11 +58,11 @@ export default function Home() {
     utterance.onstart = () => setAudioPlaying(true);
     utterance.onend = () => {
       setAudioPlaying(false);
-      setAudio(null);
     };
-
     window.speechSynthesis.speak(utterance);
   };
+
+  console.log(audioPlaying);
 
   // Function to stop audio playback
   const stopAudio = () => {
@@ -81,7 +83,7 @@ export default function Home() {
         isRecording={isRecording}
         setIsRecording={setIsRecording}
       />
-      <div className="w-full flex justify-center items-center">
+      <div className="w-full flex justify-center items-center mt-2 xl:mt-10">
         <Box
           sx={{
             width: '100%',
@@ -109,7 +111,7 @@ export default function Home() {
               <Tab label="News" value="2" className="xl:w-full flex items-center justify-center" />
             </TabList>
             <Box sx={{ flexGrow: 2, overflowY: 'auto', margin: 0, padding: 0 }}>
-              <TabPanel value="1" sx={{ height: '100%', padding: 5 }}>
+              <TabPanel value="1" sx={{ height: '100%', padding: 0 }}>
                 <Search
                   runVoice={runVoice}
                   setVoices={setVoices}
@@ -120,7 +122,7 @@ export default function Home() {
                   audioPlaying={audioPlaying}
                 />
               </TabPanel>
-              <TabPanel value="2" sx={{ height: '100%', padding: 0 }}>
+              <TabPanel value="2" sx={{ height: '100%', padding: 0, width: '100%' }}>
                 <LatestNews
                   runVoice={runVoice}
                   setVoices={setVoices}
@@ -128,6 +130,8 @@ export default function Home() {
                   transcript={transcript}
                   setTranscript={setTranscript}
                   isRecording={isRecording}
+                  audioPlaying={audioPlaying}
+                  stopAudio={stopAudio}
                 />
               </TabPanel>
             </Box>

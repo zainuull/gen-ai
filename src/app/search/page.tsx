@@ -1,19 +1,20 @@
 'use client';
+import { featuresSearch } from '@/services/api/mock.data';
 import { getWeather } from '@/services/api/services';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useEffect, useState } from 'react';
 
-interface ISearch {
-  gtts: Function;
-  runVoice: Function;
-  setVoices: Function;
-  transcript: string;
-  isRecording: boolean;
-  setTranscript: Function;
-  audioPlaying: boolean;
-}
+// interface ISearch {
+//   gtts: Function;
+//   runVoice: Function;
+//   setVoices: Function;
+//   transcript: string;
+//   isRecording: boolean;
+//   setTranscript: Function;
+//   audioPlaying: boolean;
+// }
 
-const Search = (props: ISearch) => {
+const Search = (props: any) => {
   const { gtts, runVoice, setVoices, transcript, isRecording, setTranscript, audioPlaying } = props;
   const genAI = new GoogleGenerativeAI('AIzaSyC-3Q3ZoBlAtDE471lReBHVnA372qa_lyE');
   const [res, setResponse] = useState('');
@@ -23,13 +24,18 @@ const Search = (props: ISearch) => {
     setResponse('');
 
     const lowerCaseTranscript = transcript.toLowerCase();
-    console.log(lowerCaseTranscript);
 
     switch (true) {
       case lowerCaseTranscript.includes('mindy'):
         // gtts('Hello Sir, how are you today ?');
         runVoice('Hello Sir, how are you today ?');
         setResponse('Hello sir, how are you today ?');
+        setTranscript('');
+        break;
+      case lowerCaseTranscript.includes('your name'):
+        // gtts('My name is Mindy, I am an AI created by group 1');
+        runVoice('My name is Mindy, I am an AI created by group 1');
+        setResponse('My name is Mindy, I am an AI created by group 1');
         setTranscript('');
         break;
       case lowerCaseTranscript.includes('help me'):
@@ -93,6 +99,7 @@ const Search = (props: ISearch) => {
         setTranscript('');
         break;
     }
+    setTranscript('');
   };
 
   const removeSymbols = (text: string) => {
@@ -113,29 +120,47 @@ const Search = (props: ISearch) => {
   }, [isRecording]);
 
   return (
-    <span className="flex flex-col">
+    <main className="w-full flex flex-col gap-y-2 px-2">
       {loading === true && res === '' ? (
         <p>loading....</p>
       ) : (
         <>
-          {!isRecording && audioPlaying && (
+          {!isRecording && audioPlaying ? (
             <>
-              {res.length ? (
-                <>
-                  <h1 className="w-full flex items-center justify-center">Result : </h1>
-                  <p className="text-sm xl:text-base text-justify">{removeSymbols(res)}</p>
-                </>
-              ) : (
-                <></>
+              {res.length && (
+                <div className="w-full my-4">
+                  <div className="w-full xl:w-1/2 bg-gray-100 rounded-lg min-h-56 flex flex-col p-4">
+                    <h1 className="text-sm xl:text-base font-semibold">Result : </h1>
+                    <p className="text-sm xl:text-base text-justify">{removeSymbols(res)}</p>
+                  </div>
+                  <button
+                    onClick={() => runVoice()}
+                    className="my-4 bg-red-600 px-4 py-1 rounded-lg w-[300px] text-white text-sm xl:text-base ">
+                    Stop
+                  </button>
+                </div>
               )}
-              <button onClick={() => runVoice()} className="my-4 bg-red-600 px-4 py-1 rounded-lg">
-                Stop
-              </button>
             </>
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center my-4">
+              <h1 className="text-sm xl:text-base font-semibold">The Features</h1>
+              <div className="w-full xl:w-3/4 flex justify-center flex-wrap my-4 gap-10">
+                {featuresSearch.map((data: { title: string; description: string }, idx: number) => (
+                  <div
+                    key={idx}
+                    className="w-[450px] min-h-60 text-sm flex flex-col gap-y-2 shadow-lg  border-t-2 border-black rounded-lg p-4 hover:scale-105 transition-all duration-100 cursor-pointer">
+                    <p className="text-xs font-semibold">{data.title}</p>
+                    <p className="text-xs leading-relaxed font-thin text-justify">
+                      {data.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </>
       )}
-    </span>
+    </main>
   );
 };
 
