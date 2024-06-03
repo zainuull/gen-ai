@@ -280,9 +280,9 @@ const LatestNews = (props: any) => {
                 </div>
               </div>
             ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center my-4">
+              <div className="w-full h-full flex flex-col justify-center items-center my-4 ">
                 <h1 className="text-sm xl:text-base font-semibold">The Features</h1>
-                <div className="w-full xl:w-3/4 flex justify-center flex-wrap my-4 gap-10">
+                <div className="w-full xl:w-3/4 flex justify-center flex-wrap my-4 gap-5">
                   {featuresNews.map((data: { title: string; description: string }, idx: number) => (
                     <div
                       key={idx}

@@ -62,7 +62,7 @@ const Recorder = (props: IRecorder) => {
     <div className="w-full h-32 xl:h-36 flex flex-col items-center xl:gap-y-4 py-4">
       <button
         onClick={() => setIsRecording(!isRecording)}
-        className="bg-red-600 rounded-lg p-3 text-white">
+        className="bg-[#2fb0b9] rounded-lg p-3 text-white">
         {isRecording ? (
           <LiaGripLinesVerticalSolid
             size={25}

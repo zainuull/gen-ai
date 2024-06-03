@@ -186,3 +186,45 @@ export const featuresSearch = [
     description: `Unlock a suite of comprehensive weather features tailored to your needs! Seamlessly navigate today's weather outlook with a mere voice command. From checking the current temperature to receiving in-depth forecasts for your locale, the options are boundless. Stay one step ahead of the weather curve by accessing real-time updates, hourly predictions, and timely weather alerts—all through the magic of your voice. With these intuitive tools at your disposal, planning your day becomes a breeze, ensuring you're prepared for whatever the elements may bring. Whether you're plotting an outdoor escapade or simply staying abreast of the forecast, let our weather features be your trusty guide, delivering convenience and precision every step of the way.`,
   },
 ];
+
+
+export const featuresSpeakingPractice = [
+  {
+    title: 'Try Your English Speaking',
+    description: `Enhance your English speaking skills with our interactive practice sessions! Dive into engaging conversations and exercises designed to boost your confidence and fluency in English. Whether you're a beginner or looking to refine your language skills, our platform offers tailored activities to suit your proficiency level. Practice speaking about various topics, express your opinions, and improve your pronunciation with our innovative tools. Receive instant feedback and guidance to help you overcome challenges and make progress with each session. Join our community of learners and embark on a journey towards mastering the English language through immersive speaking practice. Start today and take your English speaking abilities to new heights!`,
+  },
+];
+
+
+export const questions = [
+  {
+    title: 'What is your name',
+  },
+  {
+    title: 'What are you doing',
+  },
+  {
+    title: 'Where are you from',
+  },
+  {
+    title: 'How old are you',
+  },
+  {
+    title: 'What do you like to do in your free time',
+  },
+  {
+    title: 'Do you have any siblings',
+  },
+  {
+    title: 'What is your favorite food',
+  },
+  {
+    title: 'What is your favorite color',
+  },
+  {
+    title: 'Can you tell me about your family',
+  },
+  {
+    title: 'What is your favorite movie or TV show',
+  },
+];

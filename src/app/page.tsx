@@ -10,6 +10,7 @@ import Recorder from './recorder';
 import Search from './search/page';
 import { deleteAudioFile } from '@/services/api/services';
 import LatestNews from './news/page';
+import SpeakingPractice from './speaking-practice/page';
 
 export default function Home() {
   const [audioPlaying, setAudioPlaying] = useState(false);
@@ -62,8 +63,6 @@ export default function Home() {
     window.speechSynthesis.speak(utterance);
   };
 
-  console.log(audioPlaying);
-
   // Function to stop audio playback
   const stopAudio = () => {
     if (audio) {
@@ -95,12 +94,12 @@ export default function Home() {
               aria-label="lab API tabs example"
               className="bg-gray-200"
               sx={{
-                color: '#991b1b !important', // Your custom text color
+                color: '#2fb0b9 !important', // Your custom text color
                 '& .Mui-selected': {
-                  color: '#991b1b !important', // Your custom text color for selected tab
+                  color: '#2fb0b9 !important', // Your custom text color for selected tab
                 },
                 '& .MuiTabs-indicator': {
-                  backgroundColor: '#991b1b !important', // Your custom indicator color
+                  backgroundColor: '#2fb0b9 !important', // Your custom indicator color
                 },
               }}>
               <Tab
@@ -109,6 +108,11 @@ export default function Home() {
                 className="xl:w-full flex items-center justify-center"
               />
               <Tab label="News" value="2" className="xl:w-full flex items-center justify-center" />
+              <Tab
+                label="Speaking Practice"
+                value="3"
+                className="xl:w-full flex items-center justify-center"
+              />
             </TabList>
             <Box sx={{ flexGrow: 2, overflowY: 'auto', margin: 0, padding: 0 }}>
               <TabPanel value="1" sx={{ height: '100%', padding: 0 }}>
@@ -132,6 +136,17 @@ export default function Home() {
                   isRecording={isRecording}
                   audioPlaying={audioPlaying}
                   stopAudio={stopAudio}
+                />
+              </TabPanel>
+              <TabPanel value="3" sx={{ height: '100%', padding: 0, width: '100%' }}>
+                <SpeakingPractice
+                  runVoice={runVoice}
+                  setVoices={setVoices}
+                  gtts={gtts}
+                  transcript={transcript}
+                  setTranscript={setTranscript}
+                  isRecording={isRecording}
+                  audioPlaying={audioPlaying}
                 />
               </TabPanel>
             </Box>

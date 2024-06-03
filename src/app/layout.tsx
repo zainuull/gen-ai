@@ -8,7 +8,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Mine AI',
+  title: 'Mind AI',
   description: 'This created by Zainul',
   authors: [{ name: 'Mine AI' }, { url: 'https://gen-ai-chi.vercel.app' }],
   // icons: {
