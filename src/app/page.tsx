@@ -73,7 +73,7 @@ export default function Home() {
       window.speechSynthesis.cancel();
     }
   };
-
+     
   return (
     <main className="w-full flex flex-col">
       <Recorder
